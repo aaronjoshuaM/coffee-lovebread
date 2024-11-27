@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coffee, Love & Bread</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e5bf94;
+            padding: 15px 20px;
+            color: white;
+        }
+        .navbar .logo {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .content {
+            text-align: center;
+            padding: 50px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .content img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .content h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .content p {
+            font-size: 18px;
+            color: #666;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .product-section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .product-section h2 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .product-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .product-item {
+            position: relative;
+            width: 150px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            cursor: pointer;
+        }
+        .product-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .product-item:hover img {
+            transform: scale(1.1);
+        }
+        .product-price {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 16px;
+            padding: 5px;
+            display: none;
+        }
+        .product-name {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+        }
+        .product-item:hover .product-name {
+            opacity: 1;
+        }
+
+        .contact-section {
+            padding: 50px 20px;
+            background-color: #f1e1c6;
+            text-align: center;
+        }
+        .contact-section h2 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .contact-info {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+        .contact-item {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: #333;
+            margin: 0 10px;
+            font-size: 24px;
+            text-decoration: none;
+        }
+       
+
+
+        .star-rating {
+    display: flex;
+    direction: row-reverse;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  .star-rating input {
+    display: none;
+  }
+  .star-rating label {
+    color: lightgray;
+  }
+  .star-rating input:checked ~ label,
+  .star-rating input:hover ~ label {
+    color: gold;
+  }
+
+  .order-form {
+            max-width: 400px;
+            margin: 60px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .order-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .order-form .form-group {
+            margin-bottom: 15px;
+        }
+        .order-form label {
+            display: block;
+            margin-bottom: 50px;
+        }
+        .order-form input, .order-form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        .order-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #e5bf94;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+        .scrollable {
+    max-height: 400px; 
+    overflow-y: auto; 
+    padding: 20px; 
+    border: 1px solid #ddd; 
+    border-radius: 10px; 
+    background-color: #fff; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    font-family: Arial, sans-serif; 
+    line-height: 1.6; 
+    color: #333; 
+}
+
+
+
+
+    </style>
+   
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="star-rating">
+        <input type="radio" name="rating" id="rating5" value="5">
+        <label for="rating5">★</label>
+        <input type="radio" name="rating" id="rating4" value="4">
+        <label for="rating4">★</label>
+        <input type="radio" name="rating" id="rating3" value="3">
+        <label for="rating3">★</label>
+        <input type="radio" name="rating" id="rating2" value="2">
+        <label for="rating2">★</label>
+        <input type="radio" name="rating" id="rating1" value="1">
+        <label for="rating1">★</label>
+      </div>
+      
+
+    <header class="navbar">
+        <div class="logo">Coffee, Love & Bread</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#bread">Bread</a></li>
+            <li><a href="#coffee">Coffee</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <section id="about" class="content scrollable">
+        <img src="logo2.jpg" alt="Logo">
+        <h1>Welcome to Coffee, Love & Bread</h1>
+        <h3>About Us</h3>
+        <p>Welcome to Your Daily Slice of Happiness!</p>
+        <p>Ever wondered what heaven smells like? Step into Coffee, Love & Bread, where the aroma of freshly baked bread dances with perfectly roasted coffee beans. We're that cozy corner of happiness where your day gets a whole lot better!</p>
+        <h3>What Makes Us Special?</h3>
+        <p>We're not just another café — we're your home away from home, where every sourdough has a story and every coffee cup comes with a smile. Our bakers are up with the roosters (seriously, they're the early birds of early birds!) crafting bread that would make your grandmother proud. Meanwhile, our coffee wizards are turning premium beans into liquid gold.</p>
+        <h3>Our Not-So-Secret Recipe</h3>
+        <ul>
+            <li>Fresh bread that makes your taste buds do a happy dance</li>
+            <li>Coffee that'll make you wonder why you ever settled for less</li>
+            <li>A team that's passionate about making your day better</li>
+            <li>A space where strangers become friends over croissant crumbs</li>
+        </ul>
+        <h3>Small Details, Big Heart</h3>
+        <p>Your morning muffin? Made from scratch. That perfect latte art? Created with love. We believe in doing things the right way, not the easy way. Our ingredients are locally sourced whenever possible, and our recipes are crafted with both tradition and creativity in mind.</p>
+        <h3>More Than Just a Café</h3>
+        <p>Drop by for breakfast, stay for lunch, or grab a loaf for dinner — we're here to feed your belly and your soul.</p>
+        <h3>Join Our Family</h3>
+        <p>Every visit to Coffee, Love & Bread is an invitation to be part of our story. We're not just serving food and drinks – we're serving moments, memories, and a whole lot of happiness, one slice and sip at a time. Come as you are, leave a little happier. That's our promise to you! ☕🍞</p>
+    </section>
+    
+    
+   
+    <section id="bread" class="product-section">
+        <h2>Breads</h2>
+        <div class="product-gallery">
+            <div class="product-item">
+                <img src="bananabread.jpg" alt="Bread 1">
+                <div class="product-name">Banana Bread</div>
+                <div class="product-price">₱100</div>
+            </div>
+            <div class="product-item">
+                <img src="ensaymada.jpg" alt="Bread 2">
+                <div class="product-name">Ensaymada</div>
+                <div class="product-price">₱95</div>
+            </div>
+            <div class="product-item">
+                <img src="mamon.jpg" alt="Bread 1">
+                <div class="product-name">Mamon Bread</div>
+                <div class="product-price">₱100</div>
+            </div>
+            <div class="product-item">
+                <img src="panderegla.jpg" alt="Bread 1">
+                <div class="product-name">Pan De Regla</div>
+                <div class="product-price">₱100</div>
+            </div>
+            <div class="product-item">
+                <img src="pandesal.jpg" alt="Bread 1">
+                <div class="product-name">Pandesal</div>
+                <div class="product-price">₱100</div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="coffee" class="product-section">
+        <h2>Coffees</h2>
+        <div class="product-gallery">
+            <div class="product-item">
+                <img src="Americano.jpg" alt="Coffee 1">
+                <div class="product-name">Americano</div>
+                <div class="product-price">₱100</div>
+            </div>
+            <div class="product-item">
+                <img src="coldbrew.jpg" alt="Coffee 2">
+                <div class="product-name">Cold Brew</div>
+                <div class="product-price">₱100</div>
+            </div>
+            <div class="product-item">
+                <img src="espresso.jpg" alt="Coffee 1">
+                <div class="product-name">Espresso</div>
+                <div class="product-price">₱100</div>
+            </div>
+            <div class="product-item">
+                <img src="icedcoffe.jpg" alt="Coffee 1">
+                <div class="product-name">Iced Coffee</div>
+                <div class="product-price">₱100</div>
+            </div>
+            <div class="product-item">
+                <img src="macchiato.jpg" alt="Coffee 1">
+                <div class="product-name">Caffè macchiato</div>
+                <div class="product-price">₱100</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="order-form">
+        <h2>Order Now</h2>
+        <form onsubmit="return placeOrder()">
+            <div class="form-group">
+                <label for="product">Select Product</label>
+                <select id="product" name="product" onchange="updateTotal()">
+                    <option value="Banana bread" data-price="100">Banana bread - ₱100</option>
+                    <option value="ensaymada" data-price="95">Ensaymada - ₱95</option>
+                    <option value="Pan De Resla" data-price="100">Mamon bread- ₱100</option>
+                    <option value="Pan De Resla" data-price="100">Pan De Resla - ₱100</option>
+                    <option value="Pandesal" data-price="120">Pandesal - ₱100</option>
+                    <option value="Americano" data-price="120">Americano - ₱100</option>
+                    <option value="Cold Brew " data-price="120">Cold Brew - ₱100</option>
+                    <option value="Espresso" data-price="120">Espresso - ₱100</option>
+                    <option value="Iced Coffee" data-price="120">Iced Coffee - ₱100</option>
+                    <option value="Caffè macchiato" data-price="120">Caffè macchiato - ₱100</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" onchange="updateTotal()" required>
+            </div>
+            <div class="form-group">
+                <label for="total">Total</label>
+                <input type="text" id="total" name="total" readonly>
+            </div>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Delivery Address</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <button type="submit">Place Order</button>
+        </form>
+        <p id="successMessage" style="display: none; color: rgb(28, 200, 248); text-align: center; margin-top: 10px;">
+            Thank you! Your order has been placed successfully.
+        </p>
+    </section>
+    
+    
+
+    <section id="contact" class="contact-section">
+        <h2>Contact Us</h2>
+        <h2>For Your Order</h2>
+
+        
+        <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61568723042454" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/gwypachi/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+
+        <div class="contact-item">
+        <h3>or visit on our shop</h3>
+            <div class="contact-info">47 Mapayapa Comp., Bagong Silang</div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-info">09182933038</div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-info">@coffeelovebread.com</div>
+        </div>
+
+        <form id="commentForm">
+            <label for="customerName">Your Name:</label><br>
+            <input type="text" id="customerName" placeholder="Enter your name"><br><br>
+        
+            <label for="customerComment">Your Comment:</label><br>
+            <textarea id="customerComment" placeholder="Write your comment here" rows="5" required></textarea><br><br>
+        
+            <button type="submit">Submit Comment</button>
+          </form>
+
+          <div id="commentSection">
+            <div id="commentsContainer"></div>
+          </div>
+
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.product-item').hover(
+                function() {
+                    $(this).find('.product-price').fadeIn();  
+                },
+                function() {
+                    $(this).find('.product-price').fadeOut(); 
+                }
+            );
+        });
+    </script>
+
+<script>
+    const stars = document.querySelectorAll('.star-rating input');
+    stars.forEach(star => {
+      star.addEventListener('change', () => {
+        const rating = star.value;
+        submitRating(rating);
+      });
+    });
+  
+    function submitRating(rating) {
+      
+      fetch('/submit-rating', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ rating: parseInt(rating) })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('average-rating').innerText = `Average Rating: ${data.averageRating.toFixed(1)}`;
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  </script>
+
+<script>
+    function updateTotal() {
+        const product = document.getElementById("product");
+        const quantity = document.getElementById("quantity").value;
+        const totalField = document.getElementById("total");
+        const selectedOption = product.options[product.selectedIndex];
+        const price = parseFloat(selectedOption.getAttribute("data-price"));
+        const total = price * quantity;
+        totalField.value = `₱${total.toFixed(2)}`;
+    }
+    function placeOrder() {
+        const product = document.getElementById("product").value;
+        const quantity = document.getElementById("quantity").value;
+        const total = document.getElementById("total").value;
+        const name = document.getElementById("name").value;
+        const address = document.getElementById("address").value;
+
+        if (!product || !quantity || !name || !address) {
+            alert("Please fill out all fields.");
+            return false;
+        }
+
+        const successMessage = document.getElementById("successMessage");
+        successMessage.innerHTML = `Thank you, ${name}! Your order for ${quantity} ${product}(s) totaling ${total} has been placed successfully.`;
+        successMessage.style.display = "block";
+        return false;
+    }
+    document.addEventListener("DOMContentLoaded", updateTotal);
+</script>
+
+<script>
+    const commentForm = document.getElementById('commentForm');
+    const commentsContainer = document.getElementById('commentsContainer');
+    commentForm.addEventListener('submit', (event) => {
+      event.preventDefault(); 
+      const customerName = document.getElementById('customerName').value.trim();
+      const customerComment = document.getElementById('customerComment').value.trim();
+      if (customerName && customerComment) {
+        const commentElement = document.createElement('div');
+        commentElement.className = 'comment';
+        commentElement.innerHTML = `<strong>${customerName}</strong><br>${customerComment}`;
+       commentsContainer.appendChild(commentElement);   
+        commentForm.reset();
+      } else {
+        alert('Please fill in both fields before submitting.');
+      }
+    });
+  </script>
+
+
+</body>
+</html>
